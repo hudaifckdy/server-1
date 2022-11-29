@@ -1,17 +1,23 @@
-const express = require('express');
+const express = require("express");
+const { login, register } = require("../mongodb");
 
 const router = express.Router();
 
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  login(req.body).then((data) => {
+    res.json(data);
+  });
+});
 
-router.post('/login',(req,res)=>{
+router.get("/", (req, res) => {
+  res.end("hiii");
+});
 
- console.log(req.body);
- res.json({status:200})
+router.post("/signup",(req,res) => {
+  register(req.body).then((values) => {
+    res.json(values);
+  })
 })
-
-router.get('/',(req,res)=>{
-  res.end('hiii')
-})
-
 
 module.exports = router;
